@@ -1,0 +1,36 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+
+    {% if active_listing %}
+        <ul>
+            {% for listing in active_listing %}
+                <div class="listing-item">
+                    {% if listing.image_url %}
+                        <img src="{{ listing.image_url }}" alt="Image for {{ listing.title }}">
+                    {% endif %}
+                    <div>
+                        <div class="title"><a href="{% url 'listing_details' listing.id %}">{{ listing.title }}</a></div>
+
+                        {% if user not in listing.watchers.all %}
+                            <a class="add_to_watchlist-link" href="{% url 'add_to_watchlist' listing.id %}">Add to Watchlist</a>
+                        {% else %}
+                             <a class="remove_from_watchlist-link" href="{% url 'remove_from_watchlist' listing.id %}">Remove from Watchlist</a>
+                        {% endif %}
+                        <div class="category"><a class="category-link" href="{% url 'category_listings' listing.category.id %}">{{ listing.category }}</a></div>
+                        <div class="price">${{ listing.current_price }}</div>
+                        <div class="description">
+                            <p>{{ listing.subtitle }}</p>
+                            <p class="date-posted">Created {{ listing.created_date }}</p>
+                        </div>
+
+                    </div>
+                </div>
+            {% endfor %}
+
+        </ul>
+    {% else %}
+        <p>No active listings at the moment.</p>
+    {% endif %}
+{% endblock %}

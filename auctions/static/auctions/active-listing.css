@@ -1,0 +1,84 @@
+/* Base styles for the page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F6F6F6;
+    color: #333;
+}
+
+/* Container for each listing */
+.listing-item {
+    background-color: #FFF;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 10px;
+    display: flex;
+    align-items: start; /* Align items to the top */
+}
+
+/* Image styling */
+.listing-item img {
+    max-width: 150px;
+    margin-right: 20px;
+    border: 1px solid #ddd;
+}
+
+/* Title styling */
+.listing-item .title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Price styling, you can use Amazon's orange for example */
+.listing-item .price {
+    color: #B12704;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Description styling */
+.listing-item .description {
+    color: #555;
+}
+
+.date-posted {
+    font-family: Times, Arial, sans-serif;
+    font-size: 0.875em;
+    color: #A3A3A3;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+
+.add_to_watchlist-link, .remove_from_watchlist-link {
+    color: #007BFF;
+    border: 1px solid #007BFF;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+
+.add_to_watchlist-link {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.add_to_watchlist-link:hover {
+    border: 2px solid #fff;
+    color: #fff;
+    text-decoration: none;
+}
+
+.category {
+    margin: 15px 10px;
+
+}
+
+.category-link {
+    font-family: monospace;
+    margin-top: 20px;
+}
+
+

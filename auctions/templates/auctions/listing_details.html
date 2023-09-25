@@ -1,0 +1,100 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block body %}
+<div class="listing-details">
+
+    <div class="listing-header">
+        <h2 class="listing-title">{{ listing.title }}</h2>
+
+
+    <div class="action-buttons">
+        <div class="edit-button">
+            {% if user == listing.creator and listing.active %}
+                <a href="{% url 'edit_listing' listing.id %}" class="btn-image">
+                    <img src="{% static 'images/edit-icon.png' %}" alt="Edit Icon">
+                </a>
+            {% endif %}
+        </div>
+        <div class="watchlist-button">
+            {% if user not in listing.watchers.all %}
+                <button onclick="location.href='{% url 'add_to_watchlist' listing.id %}'" class="add-to-watchlist-action">Add to Watchlist</button>
+            {% else %}
+                <button onclick="location.href='{% url 'remove_from_watchlist' listing.id %}'" class="remove-watchlist-action">Remove from Watchlist</button>
+            {% endif %}
+        </div>
+    </div>
+
+
+    </div>
+
+    <img src="{{ listing.image_url }}" alt="{{ listing.title }}" class="listing-image">
+    <p class="listing-description">{{ listing.description|linebreaksbr }}</p>
+    <p class="listing-starting-bid">Starting Bid: ${{ listing.starting_bid }}</p>
+    <p class="listing-current-price">Current Price: ${{ listing.current_price }}</p>
+
+    {% if bids %}
+        <div class="bid-history-container">
+            <h4>Bidding History:</h4>
+                {% for bid in bids %}
+                    <div class="bid-history-entry">
+                        {{ bid.user.username }}: ${{ bid.offer }} <span class="timestamp">at {{ bid.date }}</span>
+                    </div>
+                {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if messages %}
+    <div class="messages-container">
+        {% for message in messages %}
+        <div class="{% if message.tags %}message {{ message.tags }}{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="bid-section">
+        <form action="{% url 'place_bid' listing.id %}" method="post">
+            {% csrf_token %}
+            <label for="bid_amount">Place your bid ($):</label>
+            <input type="number" step="0.01" id="bid_amount" name="offer" required>
+            <button type="submit" class="watchlist-action smaller-btn">Place Bid</button>
+
+            {% if user == listing.creator or user.is_staff %}
+                <button class="watchlist-action smaller-btn" onclick="location.href='{% url 'end_auction' listing.id %}'">End Auction</button>
+            {% endif %}
+        </form>
+    </div>
+
+    <div class="listing-details-section">
+        <ul>
+            <li class="details-row">
+                <span class="posted-by">Posted by: {{ listing.creator }}</span>
+                <span class="category-details">Category: <a class="category-link" href="{% url 'category_listings' listing.category.id %}">{{ listing.category }}</a></span>
+                <span class="posted-date date-posted">Created {{ listing.created_date }}</span>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="comments">
+        {% for comment in listing.get_comments.all %}
+            <div class="comment">
+                <strong>{{ comment.user.username }} :</strong>{{ comment.comment }}
+                <span class="comment-timestamp">{{ comment.created_date }}</span>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="comment-section">
+        <form action="{% url 'listing_details' listing.id %}" method="post">
+            {% csrf_token %}
+            <textarea name="comment" rows="4" placeholder="Add a comment..." required></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
+
