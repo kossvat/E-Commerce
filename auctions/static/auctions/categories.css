@@ -1,0 +1,30 @@
+.category-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.category-btn {
+    width: 300px;
+    height: 40px;
+    text-align: center;
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 5px 40px;
+    margin: 25px;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 5px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-decoration: none;
+    border: none;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.category-btn:hover {
+    border: 1px solid #fff;
+    background-color: #004c8c;
+    color: white;
+}

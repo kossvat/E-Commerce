@@ -1,0 +1,10 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+  <div class="category-button">
+    {% for category in categories %}
+    <button onclick="location.href='{% url 'category_listings' category.id %}'"  class="category-btn">{{ category.name }}</button>
+    {% endfor %}
+  </div>
+
+{% endblock %}
