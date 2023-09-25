@@ -11,6 +11,11 @@ Django Auctions is a web application that allows users to create, bid on, and ma
 - **Categories**: View listings by categories.
 - **End Auction**: Auction creators or admins can end an auction early.
 
+## Demo
+
+Check out the video demo of the website: [Watch the video](https://youtu.be/03pXBFBR0wA)
+
+
 ## Installation & Setup
 
 1. **Clone the Repository**:
